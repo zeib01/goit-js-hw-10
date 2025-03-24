@@ -20,6 +20,7 @@ const dataSeconds = document.querySelector('[data-seconds]');
 
 const options = {
   enableTime: true,
+  enableSeconds: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
