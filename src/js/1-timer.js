@@ -24,12 +24,13 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+  disableMobile: true,
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
     if (Date.now() < selectedDates[0].getTime()) {
       userSelectedDate = selectedDates[0];
       startButton.disabled = false;
     } else {
+      startButton.disabled = true;
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
@@ -51,8 +52,10 @@ function addLeadingZero(value) {
 }
 
 startButton.addEventListener('click', () => {
+  startButton.disabled = true;
+  datetimePicker.disabled = true;
+
   intervalId = setInterval(() => {
-    startButton.disabled = true;
     const elapsedMs = userSelectedDate.getTime() - Date.now();
     if (elapsedMs > 0) {
       const formatedTime = convertMs(elapsedMs);
@@ -77,7 +80,7 @@ startButton.addEventListener('click', () => {
       });
 
       clearInterval(intervalId);
-      startButton.disabled = false;
+      startButton.disabled = true;
       datetimePicker.disabled = false;
       userSelectedDate = null;
     }
